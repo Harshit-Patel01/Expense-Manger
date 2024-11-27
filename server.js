@@ -37,7 +37,7 @@ const verifyToken = (req, res, next) => {
 };
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/Login', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
