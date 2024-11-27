@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
        const password = document.getElementById('password').value;
  
        try {
-         const response = await fetch('http://localhost:5500/api/login', {
+         const response = await fetch('https://expense-manger-d8ks.onrender.com/api/login', {
            method: 'POST',
            headers: {
              'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
            localStorage.setItem('userName', `${data.firstName} ${data.lastName}`);
            
            // Redirect to dashboard or home page
-           window.location.href = 'http://localhost:5500/dashboard.html';
+           window.location.href = 'https://expense-manger-d8ks.onrender.com/dashboard.html';
          } else {
            alert(data.message || 'Login failed');
          }
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
        const password = document.getElementById('passwordCreate').value;
  
        try {
-        const response = await fetch('http://localhost:5500/api/register', {
+        const response = await fetch('https://expense-manger-d8ks.onrender.com/api/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
