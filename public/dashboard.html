@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="shortcut icon" href="./img/favicon.svg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            height: 100vh;
+            box-sizing: border-box;
+
+        }
+
+        .dashboard-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-weight: 700;
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        #logoutButton {
+            background-color: rgba(227, 253, 169, 0);
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #logoutButton:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        #expenseChart {
+            max-width: 1080px;
+            margin: 20px auto;
+        }
+
+        .expense-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+
+        }
+
+        .expense-table th,
+        .expense-table td {
+            padding: 10px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .expense-table thead tr {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .expense-table th {
+            background-color: #f2f2f2;
+        }
+
+        .add-expense-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #expenseModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+
+        .close-btn {
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 5px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+        }
+
+        #submit {
+            background-color: #4CAF50;
+            color: white;
+            margin: 1rem 0rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #submit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25);
+        }
+        .expense-table-wrapper {
+            height: 155px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>Expense Tracker</h1>
+            <button id="logoutButton">Logout</button>
+        </div>
+
+        <div id="userInfo">
+            <h2 id="welcomeMessage"></h2>
+        </div>
+
+        <div id="chartContainer">
+            <canvas id="expenseChart"></canvas>
+        </div>
+
+        <button class="add-expense-btn" id="openExpenseModal">Add Expense</button>
+
+        <div id="expenseList">
+            <h2>Expense History</h2>
+            <div class="expense-table-wrapper">
+                <table class="expense-table" id="expenseTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Payer</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expense Modal -->
+    <div id="expenseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2>Add New Expense</h2>
+            <form id="expenseForm">
+                <label for="expenseAmount">Amount:</label>
+                <input type="number" id="expenseAmount" required>
+
+                <label for="expenseDescription">Description:</label>
+                <input type="text" id="expenseDescription" required>
+
+                <button id='submit' type="submit">Submit Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
