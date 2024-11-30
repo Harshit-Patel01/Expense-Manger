@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch and display expenses
     const fetchExpenses = async () => {
         try {
-            const response = await fetch('https://expense-manger-d8ks.onrender.com/expenses/all', {
+            const response = await fetch('https://expense-manger-d8ks.onrender.com/api/expenses/all', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
